@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chrome-extension</title>
+    <script src="http://threejsplaygnd.brangerbriz.net/js/three.min.js"></script>
+	<script src="http://threejsplaygnd.brangerbriz.net/js/Detector.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="typewriter">Imagination is more important than knowledge.</div>
+	<script>
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+			
+			var camera, scene, renderer;
+			var geometry, material, mesh;
+
+			function setup() {
+				
+
+				var W = window.innerWidth, H = window.innerHeight;
+				renderer = new THREE.WebGLRenderer();
+				renderer.setSize( W, H );
+				document.body.appendChild( renderer.domElement );
+
+				camera = new THREE.PerspectiveCamera( 50, W/H, 1, 10000 );
+				camera.position.z = 500;
+
+				scene = new THREE.Scene();
+				
+				
+				geometry = new THREE.Geometry();
+				for ( i = 0; i < 5000; i ++ ) {
+					var vertex = new THREE.Vector3();
+					vertex.x = 1000 * Math.random() - 500;
+					vertex.y = 1000 * Math.random() - 300;
+					vertex.z = 1000 * Math.random() - 500;
+					geometry.vertices.push( vertex );
+				}
+				material = new THREE.ParticleBasicMaterial( { size: 5, sizeAttenuation: false, transparent: true } );
+				material.color.setHex( 0xff00ff );
+				particles = new THREE.ParticleSystem( geometry, material );
+				particles.sortParticles = true;
+				scene.add( particles );
+
+
+			}
+
+			function draw() {
+
+				requestAnimationFrame( draw );
+				
+				particles.rotation.y = Date.now() * 0.0001;
+
+
+				renderer.render( scene, camera );
+				var time = Date.now() * 0.0008;
+				h = ( 360 * ( 1.0 + time ) % 360 ) / 360;
+				material.color.setHSL( h, 0.4, 0.5 );
+
+			}
+
+			setup();
+			draw();
+
+		</script>
+
+	</body>
+</html>
