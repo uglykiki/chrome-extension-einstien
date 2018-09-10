@@ -1,8 +1,8 @@
 body{
-    background-image: url("einstein.jpg");
+    background-image: url("../image/einstein.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position-y: -80px;
+    background-position-y: -100px;
 }
 
 .typewriter{
